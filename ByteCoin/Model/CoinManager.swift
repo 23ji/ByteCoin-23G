@@ -8,12 +8,23 @@
 
 import Foundation
 
-struct CoinManager {
-    
-    let baseURL = "https://rest.coinapi.io/v1/exchangerate/BTC"
-    let apiKey = "YOUR_API_KEY_HERE"
-    
-    let currencyArray = ["AUD", "BRL","CAD","CNY","EUR","GBP","HKD","IDR","ILS","INR","JPY","MXN","NOK","NZD","PLN","RON","RUB","SEK","SGD","USD","ZAR"]
+protocol CoinManagerDelegate {
+  
+}
 
-    
+
+struct CoinManager {
+  
+  var delegate: CoinManagerDelegate?
+  
+  private enum API {
+    static let baseURL = "https://rest.coinapi.io/v1/exchangerate/BTC"
+    static let apiKey = "4497EACB-469A-4FE9-BAB7-CBF13FB28198"
+  }
+  
+  let currencyArray = ["AUD", "BRL","CAD","CNY","EUR","GBP","HKD","IDR","ILS","INR","JPY","MXN","NOK","NZD","PLN","RON","RUB","SEK","SGD","USD","ZAR"]
+  
+  func updateCurrency(currency: String) {
+    let url = "\(API.baseURL)/\(currency)?apikey=\(API.apiKey)"
+  }
 }
