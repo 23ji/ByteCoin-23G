@@ -9,7 +9,7 @@
 import Foundation
 
 protocol CoinManagerDelegate {
-  
+  func updateCoin(rate: String, currency: String)
 }
 
 
@@ -25,15 +25,27 @@ struct CoinManager {
   let currencyArray = ["AUD", "BRL","CAD","CNY","EUR","GBP","HKD","IDR","ILS","INR","JPY","MXN","NOK","NZD","PLN","RON","RUB","SEK","SGD","USD","ZAR"]
   
   func updateCurrency(currency: String) {
-    let urlString = "\(API.baseURL)/\(currency)?apikey=\(API.apiKey)"
+    let urlString = "\(API.baseURL)/\(currency)?apiKey=\(API.apiKey)"
     
     guard let url = URL(string: urlString) else { return }
     
     let session = URLSession(configuration: .default)
     
     let task = session.dataTask(with: url) { data, _, error in
-      <#code#>
+      guard error == nil else { return }
+      guard let data = data else { return }
+      
+      guard let rateData = self.parseData(data: data) else { return }
+      
+      let rateString = String(format: "%.1f", rateData.rate)
+      
+      self.delegate?.updateCoin(rate: rateString, currency: currency)
     }
     task.resume()
+  }
+  
+  func parseData(data: Data) -> Coin? {
+    let coinData = try? JSONDecoder().decode(Coin.self, from: data)
+    return coinData
   }
 }
