@@ -25,6 +25,15 @@ struct CoinManager {
   let currencyArray = ["AUD", "BRL","CAD","CNY","EUR","GBP","HKD","IDR","ILS","INR","JPY","MXN","NOK","NZD","PLN","RON","RUB","SEK","SGD","USD","ZAR"]
   
   func updateCurrency(currency: String) {
-    let url = "\(API.baseURL)/\(currency)?apikey=\(API.apiKey)"
+    let urlString = "\(API.baseURL)/\(currency)?apikey=\(API.apiKey)"
+    
+    guard let url = URL(string: urlString) else { return }
+    
+    let session = URLSession(configuration: .default)
+    
+    let task = session.dataTask(with: url) { data, _, error in
+      <#code#>
+    }
+    task.resume()
   }
 }
