@@ -37,6 +37,14 @@ extension ViewController: UIPickerViewDelegate, UIPickerViewDataSource {
   }
 
   func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-    coinManager.currencyArray.count
+    self.coinManager.currencyArray.count
+  }
+  
+  func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+    self.coinManager.currencyArray[row]
+  }
+  
+  func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+
   }
 }
