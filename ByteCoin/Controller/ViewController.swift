@@ -25,6 +25,7 @@ class ViewController: UIViewController {
     super.viewDidLoad()
     self.pickerView.delegate = self
     self.pickerView.dataSource = self
+    self.coinManager.delegate = self
   }
 }
 
@@ -46,5 +47,17 @@ extension ViewController: UIPickerViewDelegate, UIPickerViewDataSource {
   
   func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
     self.coinManager.updateCurrency(currency: self.coinManager.currencyArray[row])
+  }
+}
+
+
+//MARK: - CoinManagerDelegate
+
+extension ViewController: CoinManagerDelegate {
+  func updateCoin(rate: String, currency: String) {
+    DispatchQueue.main.async {
+      self.currrency.text = currency
+      self.bitCoinLabel.text = rate
+    }
   }
 }
