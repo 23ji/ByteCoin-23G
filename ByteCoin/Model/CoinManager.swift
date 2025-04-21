@@ -19,7 +19,7 @@ struct CoinManager {
   
   private enum API {
     static let baseURL = "https://rest.coinapi.io/v1/exchangerate/BTC"
-    static let apiKey = "4497EACB-469A-4FE9-BAB7-CBF13FB28198"
+    static let apiKey = "API-Key"
   }
   
   let currencyArray = ["AUD", "BRL","CAD","CNY","EUR","GBP","HKD","IDR","ILS","INR","JPY","MXN","NOK","NZD","PLN","RON","RUB","SEK","SGD","USD","ZAR"]
