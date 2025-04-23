@@ -18,9 +18,17 @@ struct CoinManager {
   var delegate: CoinManagerDelegate?
   
   private enum API {
-    static let baseURL = "https://rest.coinapi.io/v1/exchangerate/BTC"
-    static let apiKey = "API-Key"
-  }
+      static let baseURL = "https://rest.coinapi.io/v1/exchangerate/BTC"
+
+      static let apiKey: String = {
+        guard let path = Bundle.main.path(forResource: "Secrets", ofType: "plist"),
+              let dict = NSDictionary(contentsOfFile: path),
+              let key = dict["CoinAPIKey"] as? String else {
+          fatalError("❌ API Key가 설정되지 않았습니다. Secrets.plist를 확인해주세요.")
+        }
+        return key
+      }()
+    }
   
   let currencyArray = ["AUD", "BRL","CAD","CNY","EUR","GBP","HKD","IDR","ILS","INR","JPY","MXN","NOK","NZD","PLN","RON","RUB","SEK","SGD","USD","ZAR"]
   
